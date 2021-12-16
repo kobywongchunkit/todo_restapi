@@ -62,4 +62,15 @@ public class TodoServiceTest {
         //then
         verify(todoRepository, times(1)).deleteById("1");
     }
+    @Test
+    void should_return_todo_when_create_todo_given_new_todo() {
+        //given
+        Todo todo = new Todo("1","test",true);
+        given(todoRepository.insert((Todo) any()))
+                .willReturn(todo);
+        //When
+        Todo actual = todoService.create(todo);
+        //then
+        assertEquals(actual, todo);
+    }
 }
