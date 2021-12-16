@@ -1,6 +1,5 @@
 package com.afs.restapi.controller;
 
-import com.afs.restapi.dto.TodoResponse;
 import com.afs.restapi.entity.Todo;
 import com.afs.restapi.service.TodoService;
 import org.springframework.http.HttpStatus;
