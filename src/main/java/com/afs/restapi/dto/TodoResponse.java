@@ -1,5 +1,7 @@
 package com.afs.restapi.dto;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TodoResponse {
     private String id;
     private String text;
