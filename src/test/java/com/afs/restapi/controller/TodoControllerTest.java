@@ -105,4 +105,19 @@ public class TodoControllerTest {
         ;
 
     }
+    @Test
+    void should_return_todo_when_perform_get_given_todos_and_id() throws Exception {
+        //given
+        Todo todo = new Todo(null,"todo text1",true);
+        todoRepository.insert(todo);
+
+        //When
+        //then
+        mockMvc.perform(get("/todos/{id}", todo.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").isString())
+                .andExpect(jsonPath("$.done").value(true))
+        ;
+
+    }
 }
