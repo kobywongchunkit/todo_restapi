@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -60,5 +61,18 @@ public class TodoControllerTest {
                 .andExpect(jsonPath("$.text").value("test todo"))
                 .andExpect(jsonPath("$.done").value(false))
         ;
+    }
+    @Test
+    void should_remove_todo_when_perform_delete_given_todos_and_id() throws Exception {
+        //given
+        Todo todo = new Todo("1","todo text1",false);
+        todoRepository.insert(todo);
+
+        //When
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.delete("/todos/" + todo.getId()))
+                .andExpect(status().isNoContent());
+
+        assertEquals(0, todoRepository.findAll().size());
     }
 }
