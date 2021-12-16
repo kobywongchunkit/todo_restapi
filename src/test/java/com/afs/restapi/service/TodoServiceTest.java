@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 
@@ -35,5 +36,17 @@ public class TodoServiceTest {
         //then
         assertEquals(todos,actual);
 
+    }
+    @Test
+    void should_return_todo_when_find_by_id_given_todos() {
+        //given
+        Todo todo = new Todo("1","test",true);
+        List<Todo> employees = Stream.of(new Todo("1","test",true)).collect(Collectors.toList());
+        given(todoRepository.findById(any()))
+                .willReturn(java.util.Optional.of(todo));
+        //When
+        Todo actual = todoService.findById(todo.getId());
+        //then
+        assertEquals(todo, actual);
     }
 }
