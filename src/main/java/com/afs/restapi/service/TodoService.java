@@ -41,6 +41,6 @@ public class TodoService {
     }
 
     public Todo findById(String id) {
-        return null;
+        return todoRepository.findById(id).orElseThrow(NoTodoFoundException::new);
     }
 }
