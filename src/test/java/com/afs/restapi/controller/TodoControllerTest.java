@@ -75,4 +75,15 @@ public class TodoControllerTest {
 
         assertEquals(0, todoRepository.findAll().size());
     }
+
+    @Test
+    void should_throw_exception_when_delete_invalid_todo() throws Exception {
+        //given
+        //When
+        //then
+        mockMvc.perform(delete("/todos/{id}", "1"))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.code").value("404"))
+                .andExpect(jsonPath("$.errorMsg").value("Entity not found."));
+    }
 }
