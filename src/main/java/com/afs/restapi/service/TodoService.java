@@ -1,6 +1,7 @@
 package com.afs.restapi.service;
 
 import com.afs.restapi.entity.Todo;
+import com.afs.restapi.exception.NoTodoFoundException;
 import com.afs.restapi.repository.TodoRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ public class TodoService {
     }
 
     public void delete(String id) {
+        todoRepository.findById(id).orElseThrow(NoTodoFoundException::new);
         todoRepository.deleteById(id);
     }
 }
