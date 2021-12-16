@@ -120,4 +120,18 @@ public class TodoControllerTest {
         ;
 
     }
+    @Test
+    void should_throw_exception_when_put_invalid_todo() throws Exception {
+        //given
+        String updateCompany = "{\n" +
+                "    \"text\":\"text\"\n" +
+                "}";
+        //When
+        //then
+        mockMvc.perform(put("/todos/{id}", "1")
+                        .contentType(MediaType.APPLICATION_JSON).content(updateCompany))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.code").value("404"))
+                .andExpect(jsonPath("$.errorMsg").value("Entity not found."));
+    }
 }
