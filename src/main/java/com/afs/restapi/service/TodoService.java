@@ -18,6 +18,9 @@ public class TodoService {
     public List<Todo> findAll(){return todoRepository.findAll();}
 
     public Todo create(Todo todo) {
+        if(todo.getDone() == null){
+            todo.setDone(false);
+        }
         return todoRepository.insert(todo);
     }
 
@@ -26,7 +29,14 @@ public class TodoService {
         todoRepository.deleteById(id);
     }
 
-    public Todo edit(String id, Todo todo) {
-        return null;
+    public Todo edit(String id, Todo updateTodo) {
+        Todo todo = todoRepository.findById(id).orElseThrow(NoTodoFoundException::new);
+        if(updateTodo.getText() != null){
+            todo.setText(updateTodo.getText());
+        }
+        if(updateTodo.getDone() != null){
+            todo.setDone(updateTodo.getDone());
+        }
+        return todoRepository.save(todo);
     }
 }

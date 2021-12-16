@@ -3,7 +3,7 @@ package com.afs.restapi.entity;
 public class Todo {
     private String id;
     private String text;
-    private boolean done;
+    private Boolean done;
 
     public Todo() {
     }
@@ -30,7 +30,7 @@ public class Todo {
         this.text = text;
     }
 
-    public boolean isDone() {
+    public Boolean getDone() {
         return done;
     }
 
