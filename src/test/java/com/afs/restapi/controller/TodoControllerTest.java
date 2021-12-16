@@ -71,7 +71,7 @@ public class TodoControllerTest {
         //When
         //then
         mockMvc.perform(MockMvcRequestBuilders.delete("/todos/" + todo.getId()))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
 
         assertEquals(0, todoRepository.findAll().size());
     }
