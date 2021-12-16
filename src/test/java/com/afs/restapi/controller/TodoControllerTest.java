@@ -86,4 +86,23 @@ public class TodoControllerTest {
                 .andExpect(jsonPath("$.code").value("404"))
                 .andExpect(jsonPath("$.errorMsg").value("Entity not found."));
     }
+    @Test
+    void should_return_todo_when_perform_put_given_todo_and_id() throws Exception {
+        //given
+        Todo todo = new Todo("1","todo text1",false);
+        todoRepository.insert(todo);
+        String updatedTodo = "    {\n" +
+                "        \"text\": \"updated todo\",\n" +
+                "        \"done\": true\n" +
+                "    }";
+        //When
+        //then
+        mockMvc.perform(put("/todos/{id}", todo.getId())
+                        .contentType(MediaType.APPLICATION_JSON).content(updatedTodo))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.text").value("updated todo"))
+                .andExpect(jsonPath("$.done").value(true))
+        ;
+
+    }
 }

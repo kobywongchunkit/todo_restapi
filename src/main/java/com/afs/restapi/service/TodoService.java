@@ -25,4 +25,8 @@ public class TodoService {
         todoRepository.findById(id).orElseThrow(NoTodoFoundException::new);
         todoRepository.deleteById(id);
     }
+
+    public Todo edit(String id, Todo todo) {
+        return null;
+    }
 }
