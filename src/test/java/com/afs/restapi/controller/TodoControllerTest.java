@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -42,6 +43,22 @@ public class TodoControllerTest {
                 .andExpect(jsonPath("$[0].text").value("todo text1"))
                 .andExpect(jsonPath("$[0].done").value(false))
         ;
+    }
 
+    @Test
+    void should_return_todo_when_when_perform_post_given_todo() throws Exception {
+        //given
+        String todo = "    {\n" +
+                "        \"text\": \"test todo\",\n" +
+                "        \"done\": false\n" +
+                "    }";
+        //When
+        //then
+        mockMvc.perform(post("/todos")
+                        .contentType(MediaType.APPLICATION_JSON).content(todo))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.text").value("test todo"))
+                .andExpect(jsonPath("$.done").value(false))
+        ;
     }
 }

@@ -1,10 +1,10 @@
 package com.afs.restapi.controller;
 
+import com.afs.restapi.dto.TodoResponse;
 import com.afs.restapi.entity.Todo;
 import com.afs.restapi.service.TodoService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,5 +20,11 @@ public class TodoController {
     @GetMapping
     public List<Todo> getAllTodos(){
         return todoService.findAll();
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Todo createTodo(Todo todo){
+        return todoService.create(todo);
     }
 }
