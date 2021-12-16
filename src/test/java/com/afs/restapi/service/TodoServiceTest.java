@@ -15,6 +15,8 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 
 @ExtendWith(SpringExtension.class)
@@ -48,5 +50,16 @@ public class TodoServiceTest {
         Todo actual = todoService.findById(todo.getId());
         //then
         assertEquals(todo, actual);
+    }
+    @Test
+    void should_remove_todo_when_delete_given_id() {
+        //given
+        Todo todo = new Todo("1","test",true);
+        given(todoRepository.findById("1"))
+                .willReturn(java.util.Optional.of(todo));
+        //When
+        todoService.delete("1");
+        //then
+        verify(todoRepository, times(1)).deleteById("1");
     }
 }
